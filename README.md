@@ -5,6 +5,12 @@
 This is the frontend for the Quiz System, a web-based application that allows users to sign up, log in, take quizzes, and track their performance. This frontend is built using **HTML**, **CSS**, and **JavaScript**.
 
 ---
+## 👥 Authors
+- **[Rowlkh](https://github.com/Rowlkh)**  
+- **[Mariam-Elbishbeashy](https://github.com/Mariam-Elbishbeashy)**
+- **[LauraLucasZ](https://github.com/LauraLucasZ)**
+
+---
 
 ## 🚀 **Features**
 
@@ -33,10 +39,6 @@ This is the frontend for the Quiz System, a web-based application that allows us
 1. **Download or Clone** this repository.
 2. Open `index.html` in a browser.
 3. Navigate through the pages and explore the features.
-
-## 👥 Authors
-- **[Rowlkh](https://github.com/Rowlkh)**  
-- **[Mariam-Elbishbeashy](https://github.com/Mariam-Elbishbeashy)**  
 
 ## 📜 License
 This project is open-source and free to use for learning and development purposes.

@@ -35,9 +35,8 @@ This is the frontend for the Quiz System, a web-based application that allows us
 3. Navigate through the pages and explore the features.
 
 ## 👥 Authors
-- **[@username1](#)**  
-- **[@username2](#)**  
-- **[@username3](#)**  
+- **[Rowlkh](https://github.com/Rowlkh)**  
+- **[Mariam-Elbishbeashy](https://github.com/Mariam-Elbishbeashy)**  
 
 ## 📜 License
 This project is open-source and free to use for learning and development purposes.

@@ -11,17 +11,14 @@
     <link href="/public/css/registration.css" rel="stylesheet">
     
     <style>
-        /* Hide the login form by default */
         #loginForm {
             display: none;
         }
 
-        /* Smooth transition for form switching */
         .form-container {
             transition: opacity 0.3s ease-in-out;
         }
 
-        /* Generic styles for form elements */
         .form-input {
             margin-bottom: 1rem;
         }
@@ -115,7 +112,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Buttons with icons -->
                                     <button type="button" class="btn btn-primary btn-block mb-4 form-button">Sign in</button>
 
                                     <div class="text-center">
@@ -147,17 +143,16 @@
     </section>
 
     <script>
-        // JavaScript to toggle between forms
         document.getElementById('showLoginForm').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default link behavior
-            document.getElementById('signupForm').style.display = 'none'; // Hide sign-up form
-            document.getElementById('loginForm').style.display = 'block'; // Show login form
+            e.preventDefault();
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block'; 
         });
 
         document.getElementById('showSignupForm').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default link behavior
-            document.getElementById('loginForm').style.display = 'none'; // Hide login form
-            document.getElementById('signupForm').style.display = 'block'; // Show sign-up form
+            e.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
         });
     </script>
 

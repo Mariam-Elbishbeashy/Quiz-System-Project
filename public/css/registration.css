@@ -1,0 +1,64 @@
+.bg-image {
+    background: linear-gradient(90deg, #9911d8, #b266ff);
+}
+
+.gradient-custom-3 {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.form-container {
+    background-color: #fff;
+    border-radius: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position:sticky;
+    width: 500px;
+}
+
+#signupForm {
+    height: 750px;
+}
+
+#loginForm {
+    height: 600px;;
+}
+
+
+.form-button {
+    background: linear-gradient(90deg, #9911d8, #b266ff);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-button:hover {
+    background: linear-gradient(90deg, #e0559a, #9a55e0);
+}
+
+.form-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control-lg {
+    height: 40px;
+}
+
+.form-input {
+    border-color: #e0559a;
+}
+
+.text-uppercase {
+    font-weight: bold;
+}
+
+.form-check-label,
+.text-body {
+    color: #590992;
+}

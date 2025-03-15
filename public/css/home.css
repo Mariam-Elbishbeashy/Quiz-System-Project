@@ -304,3 +304,133 @@ body {
     }
 }
 
+
+.quiz-details-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 24px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1001; /* Higher than overlay */
+    transform: translateY(100%); /* Start off-screen */
+    transition: transform 0.3s ease;
+}
+.quiz-title{
+    color: #5a2d82; 
+    margin-bottom: -5px;
+}
+
+.quiz-details-modal.show {
+    transform: translateY(0); /* Slide up to visible */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.quiz-description {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.difficulty-section h3 {
+    color: #1f2937;
+    margin-bottom: 16px;
+}
+
+.difficulty-options {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.difficulty-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    color: #4b5563;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.difficulty-btn:hover {
+    border-color: #8835e6;
+    color: #8835e6;
+}
+
+.difficulty-btn.selected {
+    background: #8835e6;
+    border-color: #8835e6;
+    color: white;
+}
+
+.start-quiz-btn {
+    width: 100%;
+    padding: 16px;
+    background: #8835e6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
+}
+
+.start-quiz-btn:hover {
+    background: #7029cc;
+    transform: translateY(-2px);
+}
+
+.start-quiz-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .quiz-details-modal {
+        width: 500px;
+        left: 50%;
+        margin-left: -250px; /* Half of width */
+    }
+}

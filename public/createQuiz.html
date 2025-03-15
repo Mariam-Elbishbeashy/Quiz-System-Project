@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster Analytics</title>
+    <link rel="stylesheet" href="css/createQuiz.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+            <img src="./images/paper.png" alt="Logo" class="logo">
+            <span class="brand-name">QuizMaster</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="home.html" id="quizzes-link">Quizzes</a></li>
+            <li><a href="createQuiz.html" class="active" id="create-link">Create Quiz</a></li>
+            <li><a href="analysis.html" id="analytics-link">Analytics</a></li>
+            <li><a href="#">Rating</a></li>
+        </ul>
+
+        <div class="navbar-right">
+            <div class="profile">
+                <img src="./images/account.png" alt="User Profile">
+                <span>Jane Doe</span>
+            </div>
+            <a href="#" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">Create New Quiz</h1>
+        
+        <div class="quiz-form-container">
+            <form id="create-quiz-form">
+                <!-- Quiz Details Section -->
+                <div class="form-section">
+                    <h2>Quiz Details</h2>
+                    <div class="form-group">
+                        <label for="quiz-title">Quiz Title</label>
+                        <input type="text" id="quiz-title" name="quiz-title" placeholder="Enter quiz title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quiz-description">Description</label>
+                        <textarea id="quiz-description" name="quiz-description" placeholder="Enter quiz description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quiz-category">Category</label>
+                            <select id="quiz-category" name="quiz-category" required>
+                                <option value="" disabled selected>Select category</option>
+                                <option value="science">Science</option>
+                                <option value="history">History</option>
+                                <option value="technology">Technology</option>
+                                <option value="art">Art</option>
+                                <option value="html-css">HTML/CSS</option>
+                                <option value="business">Business</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quiz-time">Time Limit (minutes)</label>
+                            <input type="number" id="quiz-time" name="quiz-time" min="1" max="60" value="10">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quiz-image">Quiz Cover Image (Optional)</label>
+                        <input type="file" id="quiz-image" name="quiz-image" accept="image/*">
+                        <div class="image-preview" id="image-preview"></div>
+                    </div>
+                </div>
+                
+                <!-- Questions Section -->
+                <div class="form-section">
+                    <h2>Questions</h2>
+                    <p class="section-description">Create 10 multiple-choice questions for your quiz.</p>
+                    
+                    <div id="questions-container">
+                        <!-- Question template will be repeated 10 times -->
+                        <!-- Questions will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Submit Section -->
+                <div class="form-actions">
+                    <button type="button" id="preview-btn" class="secondary-btn">Preview Quiz</button>
+                    <button type="submit" id="submit-btn" class="primary-btn">Create Quiz</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <!-- Question Template (Hidden) -->
+    <template id="question-template">
+        <div class="question-card">
+            <div class="question-header">
+                <h3>Question <span class="question-number"></span></h3>
+                <div class="question-actions">
+                    <button type="button" class="icon-btn move-up-btn" title="Move Up">↑</button>
+                    <button type="button" class="icon-btn move-down-btn" title="Move Down">↓</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="question-text-{n}">Question Text</label>
+                <textarea name="question-text-{n}" id="question-text-{n}" placeholder="Enter your question" required></textarea>
+            </div>
+            
+            <div class="options-container">
+                <label>Answer Options</label>
+                
+                <div class="option-item">
+                    <input type="radio" name="correct-answer-{n}" id="option-{n}-1" value="1" required>
+                    <input type="text" name="option-{n}-1" placeholder="Option 1" required>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" name="correct-answer-{n}" id="option-{n}-2" value="2" required>
+                    <input type="text" name="option-{n}-2" placeholder="Option 2" required>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" name="correct-answer-{n}" id="option-{n}-3" value="3" required>
+                    <input type="text" name="option-{n}-3" placeholder="Option 3" required>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" name="correct-answer-{n}" id="option-{n}-4" value="4" required>
+                    <input type="text" name="option-{n}-4" placeholder="Option 4" required>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Quiz Preview</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body" id="preview-content">
+                <!-- Preview content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-btn" id="close-preview-btn">Close Preview</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/createQuiz.js"></script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+/* public\js\registration.js */
+
 // Show Login Form when "Login here" is clicked
 document.getElementById('showLoginForm').addEventListener('click', function (e) {
     e.preventDefault();
@@ -62,4 +64,28 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         showForm(signupForm); 
     }
+});
+
+/* Admin Login */
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loginFormElement").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        var email = document.getElementById("emailInputLogin").value;
+        var password = document.getElementById("passwordInputLogin").value;
+
+        if (email === "admin@gmail.com" && password === "admin_123") {
+            window.location.href = "/public/admin.html"; 
+        }
+        else
+        {
+            window.location.href = "/public/home.html";
+
+        }
+    });
+});
+
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    window.location.href = "/public/home.html";
 });

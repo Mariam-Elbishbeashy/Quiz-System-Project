@@ -1,0 +1,99 @@
+<!-- public\admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="/public/css/home.css">
+    <link rel="stylesheet" href="/public/css/admin.css">
+    <script src="/public/js/admin.js" defer></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="navbar-left">
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+            <img src="/public/images/paper.png" alt="Logo" class="logo">
+            <span class="brand-name">QuizMaster</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#" class="active">Users</a></li>
+            <li><a href="#">Create Quiz</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Rating</a></li>
+        </ul>
+
+        <div class="navbar-right">
+            <div class="profile">
+                <img src="/public/images/account.png" alt="User Profile">
+                <span>Jane Doe</span>
+            </div>
+            <a href="/index.html" class="logout-btn">Logout</a>
+        </div>
+
+    </nav>
+
+    <!-- User Management Container -->
+    <div class="container-wrapper">
+        <h1 class="page-title">Users</h1>
+        <div class="container">
+            <div class="controls">
+                <input type="text" id="search" placeholder="Search users...">
+                <button id="add-user-btn" class="open-popup-btn">+ Add user</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Access</th>
+                        <th>Last Active</th>
+                        <th>Date Added</th>
+                        <th>Quizzes Created</th>
+                        <th>Quizzes Moderated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table">
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button id="prevPage" class="page-btn">&laquo; Prev</button>
+                <span id="pageNumbers"></span>
+                <button id="nextPage" class="page-btn">Next &raquo;</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Edit/Add User Pop-Up Form -->
+    <div class="popup-container" id="userPopup">
+        <div class="popup-content">
+            <span class="close-btn">X</span>
+            <h1>Add User</h1>
+            <form id="userForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+
+                <label for="role">Role:</label>
+                <select id="role" required>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

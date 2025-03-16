@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster Analytics</title>
+    <link rel="stylesheet" href="css/analysis.css">
+    <link rel="stylesheet" href="css/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="navbar-left">
+            <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+
+            <img src="./images/paper.png" alt="Logo" class="logo">
+            <span class="brand-name">QuizMaster</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="home.html" class="active" id="quizzes-link">Quizzes</a></li>
+            <li><a href="createQuiz.html" class="active" id="create-link">Create Quiz</a></li>
+            <li><a href="analysis.html" class="active" id="analytics-link">Analytics</a></li>
+            <li><a href="#">Rating</a></li>
+        </ul>
+
+        <div class="navbar-right">
+            <div class="profile">
+                <img src="./images/account.png" alt="User Profile">
+                <span>Jane Doe</span>
+            </div>
+            <a href="#" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <h1 class="dashboard-title">Analytics Dashboard</h1>
+                <hr>
+                
+                <!-- Metric Cards -->
+                <div class="metric-cards">
+                    <div class="metric-card teal">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Total Quizzes</h3>
+                            <div class="metric-value">2,324</div>
+                            <div class="metric-change positive">+22% from last month</div>
+                        </div>
+                    </div>
+                    <div class="metric-card blue">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Completed Quizzes</h3>
+                            <div class="metric-value">2,300</div>
+                            <div class="metric-change positive">+36% from last month</div>
+                        </div>
+                    </div>
+                    <div class="metric-card pink">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Avg. Completion Time</h3>
+                            <div class="metric-value">12:45</div>
+                            <div class="metric-change negative">-11% from last month</div>
+                        </div>
+                    </div>
+                    <div class="metric-card purple">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <div class="metric-content">
+                            <h3>Success Rate</h3>
+                            <div class="metric-value">90%</div>
+                            <div class="metric-change positive">+19% from last month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container performance-chart">
+                        <div class="chart-header">
+                            <h2>Performance Trend</h2>
+                            <select class="time-select">
+                                <option>Last 6 months</option>
+                                <option>Last 3 months</option>
+                                <option>Last month</option>
+                            </select>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container category-chart">
+                        <div class="chart-header">
+                            <h2>Quiz Categories</h2>
+                            <select class="time-select">
+                                <option>This month</option>
+                                <option>Last month</option>
+                                <option>This year</option>
+                            </select>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <button class="view-all">View All</button>
+                    </div>
+                    <div class="activity-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Quiz Name</th>
+                                    <th>Category</th>
+                                    <th>Score</th>
+                                    <th>Time</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Lab Legends</td>
+                                    <td><span class="category-tag">Science</span></td>
+                                    <td>85%</td>
+                                    <td>12:30</td>
+                                    <td>Today</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CSS Grid & Flexbox</td>
+                                    <td><span class="category-tag">CSS</span></td>
+                                    <td>92%</td>
+                                    <td>10:15</td>
+                                    <td>Today</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Echoes of Time</td>
+                                    <td><span class="category-tag">History</span></td>
+                                    <td>70%</td>
+                                    <td>11:00</td>
+                                    <td>Today</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Market Masters</td>
+                                    <td><span class="category-tag">Marketing</span></td>
+                                    <td>98%</td>
+                                    <td>6:37</td>
+                                    <td>Today</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Masterpiece Quest</td>
+                                    <td><span class="category-tag">Art</span></td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>Today</td>
+                                    <td><span class="status pending">In Progress</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/analysis.js"></script>
+</body>
+</html>

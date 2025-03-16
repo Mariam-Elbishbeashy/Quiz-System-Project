@@ -43,3 +43,23 @@ document.querySelector("#forgotPasswordForm form").addEventListener("submit", fu
         popup.style.display = "none";
     }, 3000);
 });
+
+/* Link index.html buttons with registration.html forms */
+document.addEventListener("DOMContentLoaded", function () {
+    const signupForm = document.getElementById("signupForm");
+    const loginForm = document.getElementById("loginForm");
+    const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+
+    function showForm(formToShow) {
+        signupForm.style.display = "none";
+        loginForm.style.display = "none";
+        forgotPasswordForm.style.display = "none";
+        formToShow.style.display = "block";
+    }
+
+    if (window.location.hash === "#login") {
+        showForm(loginForm);
+    } else {
+        showForm(signupForm); 
+    }
+});

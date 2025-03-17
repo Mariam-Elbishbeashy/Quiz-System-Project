@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test</title>
+    <link rel="stylesheet" href="./css/questions.css">
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="home.html" class="back-button">
+        <img src="./images/back.png" alt="Back" class="back-icon">
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h3>General Knowledge Test</h3>
+
+            <div class="session-timer">
+                <span>Easy</span>
+                <div class="timer-container">
+                    <img src="./images/chronometer.png" alt="Timer" class="timer-icon">
+                    <span id="timer">10:00 Min</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <div class="question-section" id="question-1">
+            <p class="question-title" >Question 1</p>
+            <p class="question-text">
+                The Indian Contract Act 1872 came into force on...
+            </p>
+
+            <div class="options">
+                <label class="option">
+                    <input type="radio" name="question" value="A">
+                    <span>Option A</span>
+                </label>
+                <label class="option disabled">
+                    <input type="radio" name="question" value="B" disabled>
+                    <span>Option B</span>
+                </label>
+                <label class="option disabled">
+                    <input type="radio" name="question" value="C" disabled>
+                    <span>Option C</span>
+                </label>
+                <label class="option disabled">
+                    <input type="radio" name="question" value="D" disabled>
+                    <span>Option D</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="prev-btn">Previous</button>
+            <button class="next-btn">Next</button>
+            <button class="finish-btn">Finish</button>
+        </div>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div id="popup" class="popup-container">
+        <div class="popup-box">
+            <p class="popup-message">Are you sure you want to exit the exam?</p>
+            <div class="popup-buttons">
+                <button class="popup-btn exit-btn" onclick="confirmExit()">Exit</button>
+                <button class="popup-btn cancel-btn" onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/questions.js"></script>
+</body>
+</html>

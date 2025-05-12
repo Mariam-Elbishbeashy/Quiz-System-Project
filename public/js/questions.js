@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+ document.addEventListener("DOMContentLoaded", function () {
     const questions = [
         { question: "The Indian Contract Act 1872 came into force on...", options: ["Option A", "Option B", "Option C", "Option D"] },
         { question: "Who is known as the Father of the Nation in India?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Dr. B.R. Ambedkar"] },
@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
         { question: "Which organ in the human body produces insulin?", options: ["Liver", "Pancreas", "Heart", "Kidney"] },
         { question: "Who invented the telephone?", options: ["Alexander Graham Bell", "Nikola Tesla", "Thomas Edison", "Isaac Newton"] },
         { question: "What is the square root of 64?", options: ["6", "8", "10", "12"] }
+    ];
+
+    const correctAnswers = [
+        "Option A", "Mahatma Gandhi", "Paris", "Jupiter", "100°C",
+        "Rabindranath Tagore", "Au", "Pancreas", "Alexander Graham Bell", "8"
     ];
 
     let currentQuestionIndex = 0;
@@ -146,14 +151,12 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("⚠️ Please answer all questions before submitting.");
             return;
         }
-        alert("✅ Test submitted successfully!");
-        console.log("User Answers:", answers); // For debugging (You can send this to the backend)
+        document.getElementById("submit-popup").style.display = "flex";
+        document.getElementById("popup-message").textContent = "Are you sure you want to submit the test?";
+        document.getElementById("popup-buttons").style.display = "flex";
+        document.getElementById("score-section").style.display = "none";
     });
 
-});
-document.querySelector(".back-button").addEventListener("click", function (event) {
-    event.preventDefault(); // Prevent navigation
-    document.getElementById("popup").style.display = "flex";
 });
 
 // Close popup
@@ -164,4 +167,126 @@ function closePopup() {
 // Confirm exit and redirect to home.html
 function confirmExit() {
     window.location.href = "home.html";
+}
+
+function closeSubmitPopup() {
+    document.getElementById("submit-popup").style.display = "none";
+}
+
+function confirmSubmission() {
+    // Calculate the score based on correct answers
+    const answers = document.querySelectorAll('input[type="radio"]:checked');
+    let correctCount = 0;
+    const correctAnswers = [
+        "Option A", "Mahatma Gandhi", "Paris", "Jupiter", "100°C",
+        "Rabindranath Tagore", "Au", "Pancreas", "Alexander Graham Bell", "8"
+    ];
+    
+    answers.forEach((answer, index) => {
+        if (answer.value === correctAnswers[index]) {
+            correctCount++;
+        }
+    });
+
+    // Display the score in the popup
+    document.getElementById("score-text").textContent = `Your score: ${correctCount}/10`;
+    document.getElementById("popup-message").textContent = "✅ Test submitted successfully!";
+
+    // Hide the initial buttons (Yes/No)
+    document.getElementById("popup-buttons").style.display = "none";
+
+    // Show the review/close buttons
+    document.getElementById("score-section").style.display = "block";
+}
+
+function reviewAnswers() {
+    closeSubmitPopup();
+    
+    // Remove any existing review sections
+    document.querySelectorAll(".review-question").forEach(el => el.remove());
+    
+    // Create a review container
+    const reviewContainer = document.createElement("div");
+    reviewContainer.style.position = "fixed";
+    reviewContainer.style.top = "0";
+    reviewContainer.style.left = "0";
+    reviewContainer.style.width = "100%";
+    reviewContainer.style.height = "100%";
+    reviewContainer.style.background = "white";
+    reviewContainer.style.overflow = "auto";
+    reviewContainer.style.padding = "20px";
+    reviewContainer.style.zIndex = "1000";
+    
+    // Add a close button
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close Review";
+    closeButton.style.position = "fixed";
+    closeButton.style.top = "20px";
+    closeButton.style.right = "20px";
+    closeButton.style.padding = "10px 15px";
+    closeButton.style.background = "#6A5ACD";
+    closeButton.style.color = "white";
+    closeButton.style.border = "none";
+    closeButton.style.borderRadius = "5px";
+    closeButton.style.cursor = "pointer";
+    closeButton.addEventListener("click", function() {
+        document.body.removeChild(reviewContainer);
+    });
+    reviewContainer.appendChild(closeButton);
+    
+    // Add review content
+    const questions = [
+        { question: "The Indian Contract Act 1872 came into force on...", options: ["Option A", "Option B", "Option C", "Option D"] },
+        { question: "Who is known as the Father of the Nation in India?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Dr. B.R. Ambedkar"] },
+        { question: "What is the capital of France?", options: ["London", "Paris", "Rome", "Berlin"] },
+        { question: "Which is the largest planet in the solar system?", options: ["Earth", "Mars", "Jupiter", "Venus"] },
+        { question: "What is the boiling point of water at sea level?", options: ["90°C", "100°C", "120°C", "80°C"] },
+        { question: "Who wrote the national anthem of India?", options: ["Rabindranath Tagore", "Bankim Chandra Chattopadhyay", "Sarojini Naidu", "Sardar Patel"] },
+        { question: "What is the chemical symbol for Gold?", options: ["Au", "Ag", "Pb", "Fe"] },
+        { question: "Which organ in the human body produces insulin?", options: ["Liver", "Pancreas", "Heart", "Kidney"] },
+        { question: "Who invented the telephone?", options: ["Alexander Graham Bell", "Nikola Tesla", "Thomas Edison", "Isaac Newton"] },
+        { question: "What is the square root of 64?", options: ["6", "8", "10", "12"] }
+    ];
+    
+    const correctAnswers = [
+        "Option A", "Mahatma Gandhi", "Paris", "Jupiter", "100°C",
+        "Rabindranath Tagore", "Au", "Pancreas", "Alexander Graham Bell", "8"
+    ];
+    
+    const answers = [];
+    document.querySelectorAll('input[type="radio"]:checked').forEach(input => {
+        answers.push(input.value);
+    });
+    
+    questions.forEach((q, index) => {
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("review-question");
+        questionDiv.style.marginBottom = "30px";
+        
+        const questionText = document.createElement("h3");
+        questionText.textContent = `Question ${index + 1}: ${q.question}`;
+        questionDiv.appendChild(questionText);
+        
+        q.options.forEach(option => {
+            const optionDiv = document.createElement("div");
+            optionDiv.style.margin = "5px 0";
+            optionDiv.style.padding = "5px";
+            
+            if (option === correctAnswers[index]) {
+                optionDiv.style.color = "green";
+                optionDiv.textContent = `${option} (Correct Answer)`;
+            } else if (option === answers[index]) {
+                optionDiv.style.color = "red";
+                optionDiv.textContent = `${option} (Your Answer)`;
+            } else {
+                optionDiv.textContent = option;
+            }
+            
+            questionDiv.appendChild(optionDiv);
+        });
+        
+        reviewContainer.appendChild(questionDiv);
+    });
+    
+    document.body.appendChild(reviewContainer);
 }

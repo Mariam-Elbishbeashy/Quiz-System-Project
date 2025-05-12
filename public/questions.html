@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mock Test</title>
     <link rel="stylesheet" href="./css/questions.css">
+     <style>
+        /* Add this style to your questions.css file */
+        .review-question {
+            margin: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <!-- Back Button -->
@@ -73,7 +82,23 @@
             </div>
         </div>
     </div>
-
+    <!-- Confirmation and Score Popup -->
+    <div id="submit-popup" class="popup-container" style="display: none;">
+        <div class="popup-box">
+            <p id="popup-message" class="popup-message">Are you sure you want to submit the test?</p>
+            <div id="popup-buttons" class="popup-buttons">
+                <button class="popup-btn exit-btn" onclick="confirmSubmission()">Yes</button>
+                <button class="popup-btn cancel-btn" onclick="closeSubmitPopup()">No</button>
+            </div>
+            <div id="score-section" style="display: none; margin-top: 20px;">
+                <p id="score-text" style="font-size: 18px; font-weight: bold;"></p>
+                <div class="popup-buttons">
+                    <button class="popup-btn cancel-btn" onclick="reviewAnswers()" style="background-color: #32CD32;">Review</button>
+                    <button class="popup-btn exit-btn" onclick="closeSubmitPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./js/questions.js"></script>
 </body>
 </html>

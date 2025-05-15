@@ -1,4 +1,4 @@
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const questions = [
         { question: "The Indian Contract Act 1872 came into force on...", options: ["Option A", "Option B", "Option C", "Option D"] },
         { question: "Who is known as the Father of the Nation in India?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Dr. B.R. Ambedkar"] },
@@ -18,7 +18,50 @@
     ];
 
     let currentQuestionIndex = 0;
-    let answers = new Array(questions.length).fill(null); // Stores user answers
+    let answers = new Array(questions.length).fill(null);
+    let timerInterval;
+    const totalTime = 10; 
+    let timeLeft = totalTime;
+
+    // Initialize timer
+    function startTimer() {
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        
+        document.getElementById("timer").textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            autoSubmitTest();
+        } else {
+            timeLeft--;
+        }
+    }
+
+    function autoSubmitTest() {
+        clearInterval(timerInterval);
+        saveAnswer();
+        
+        // Calculate score
+        let correctCount = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (answers[i] === correctAnswers[i]) {
+                correctCount++;
+            }
+        }
+        
+        // Show results
+        document.getElementById("submit-popup").style.display = "flex";
+        document.getElementById("popup-message").textContent = "⏰ Time's up! Your test has been automatically submitted.";
+        document.getElementById("score-text").textContent = `Your score: ${correctCount}/10`;
+        document.getElementById("popup-buttons").style.display = "none";
+        document.getElementById("score-section").style.display = "block";
+    }
 
     // Select elements
     const progress = document.querySelector(".progress");
@@ -69,8 +112,8 @@
         btn.style.cursor = "pointer";
         btn.style.fontSize = "16px";
         btn.addEventListener("click", function () {
-            loadQuestion(i); // Load the selected question
-            popup.style.display = "none"; // Hide popup
+            loadQuestion(i);
+            popup.style.display = "none";
         });
         popup.appendChild(btn);
     }
@@ -125,6 +168,9 @@
         progress.style.width = ((currentQuestionIndex + 1) / questions.length) * 100 + "%";
     }
 
+    // Start the timer when the page loads
+    startTimer();
+
     // Load the first question on page load
     loadQuestion(currentQuestionIndex);
 
@@ -151,12 +197,26 @@
             alert("⚠️ Please answer all questions before submitting.");
             return;
         }
+        clearInterval(timerInterval);
         document.getElementById("submit-popup").style.display = "flex";
         document.getElementById("popup-message").textContent = "Are you sure you want to submit the test?";
         document.getElementById("popup-buttons").style.display = "flex";
         document.getElementById("score-section").style.display = "none";
     });
 
+    document.querySelector('#submit-popup .exit-btn').addEventListener('click', function() {
+        clearInterval(timerInterval);
+        let correctCount = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (answers[i] === correctAnswers[i]) {
+                correctCount++;
+            }
+        }
+        document.getElementById("score-text").textContent = `Your score: ${correctCount}/10`;
+        document.getElementById("popup-message").textContent = "✅ Test submitted successfully!";
+        document.getElementById("popup-buttons").style.display = "none";
+        document.getElementById("score-section").style.display = "block";
+    });
 });
 
 // Close popup
@@ -171,32 +231,6 @@ function confirmExit() {
 
 function closeSubmitPopup() {
     document.getElementById("submit-popup").style.display = "none";
-}
-
-function confirmSubmission() {
-    // Calculate the score based on correct answers
-    const answers = document.querySelectorAll('input[type="radio"]:checked');
-    let correctCount = 0;
-    const correctAnswers = [
-        "Option A", "Mahatma Gandhi", "Paris", "Jupiter", "100°C",
-        "Rabindranath Tagore", "Au", "Pancreas", "Alexander Graham Bell", "8"
-    ];
-    
-    answers.forEach((answer, index) => {
-        if (answer.value === correctAnswers[index]) {
-            correctCount++;
-        }
-    });
-
-    // Display the score in the popup
-    document.getElementById("score-text").textContent = `Your score: ${correctCount}/10`;
-    document.getElementById("popup-message").textContent = "✅ Test submitted successfully!";
-
-    // Hide the initial buttons (Yes/No)
-    document.getElementById("popup-buttons").style.display = "none";
-
-    // Show the review/close buttons
-    document.getElementById("score-section").style.display = "block";
 }
 
 function reviewAnswers() {

@@ -1,91 +1,161 @@
 /* public\js\registration.js */
 
-// Show Login Form when "Login here" is clicked
-document.getElementById('showLoginForm').addEventListener('click', function (e) {
-    e.preventDefault();
-    document.getElementById('signupForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
-});
+// Toggle forms
+function showForm(formId) {
+    ['signupForm', 'loginForm', 'forgotPasswordForm'].forEach(id => {
+        document.getElementById(id).style.display = 'none';
+    });
+    document.getElementById(formId).style.display = 'block';
+}
 
-// Show Signup Form when "Register" is clicked
-document.getElementById('showSignupForm').addEventListener('click', function (e) {
+// Navigation between forms
+document.getElementById('showLoginForm').addEventListener('click', e => {
     e.preventDefault();
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('signupForm').style.display = 'block';
+    showForm('loginForm');
 });
-
-// Show Forgot Password Form when "Forgot Password?" is clicked
-document.getElementById('showForgotPasswordForm').addEventListener('click', function (e) {
+document.getElementById('showSignupForm').addEventListener('click', e => {
+    e.preventDefault();
+    showForm('signupForm');
+});
+document.getElementById('showForgotPasswordForm').addEventListener('click', e => {
     e.preventDefault();
     showForm('forgotPasswordForm');
 });
-
-// Show Login Form from Forgot Password screen
-document.getElementById('showLoginFromForgot').addEventListener('click', function (e) {
+document.getElementById('showLoginFromForgot').addEventListener('click', e => {
     e.preventDefault();
     showForm('loginForm');
 });
 
-// Function to toggle between forms
-function showForm(formId) {
-    document.getElementById('signupForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('forgotPasswordForm').style.display = 'none';
-    document.getElementById(formId).style.display = 'block';
-}
-
-// Show email sent popup for password reset
+// Forgot Password popup
 document.querySelector("#forgotPasswordForm form").addEventListener("submit", function (e) {
     e.preventDefault();
-
-    let popup = document.getElementById("emailSentPopup");
+    const popup = document.getElementById("emailSentPopup");
     popup.style.display = "block";
-
-    setTimeout(() => {
-        popup.style.display = "none";
-    }, 3000);
+    setTimeout(() => popup.style.display = "none", 3000);
 });
 
-/* Link index.html buttons with registration.html forms */
+// Show correct form on load
 document.addEventListener("DOMContentLoaded", function () {
-    const signupForm = document.getElementById("signupForm");
-    const loginForm = document.getElementById("loginForm");
-    const forgotPasswordForm = document.getElementById("forgotPasswordForm");
-
-    function showForm(formToShow) {
-        signupForm.style.display = "none";
-        loginForm.style.display = "none";
-        forgotPasswordForm.style.display = "none";
-        formToShow.style.display = "block";
-    }
-
-    if (window.location.hash === "#login") {
-        showForm(loginForm);
-    } else {
-        showForm(signupForm); 
-    }
+    showForm(window.location.hash === "#login" ? "loginForm" : "signupForm");
 });
 
-/* Admin Login */
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("loginFormElement").addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        var email = document.getElementById("emailInputLogin").value;
-        var password = document.getElementById("passwordInputLogin").value;
+function showError(input, message) {
+    let error = input.nextElementSibling;
+    if (!error || !error.classList.contains('input-error')) {
+        error = document.createElement('div');
+        error.className = 'input-error text-danger mt-1';
+        input.parentNode.appendChild(error);
+    }
+    error.textContent = message;
+    input.classList.add('is-invalid');
+}
+function clearError(input) {
+    let error = input.nextElementSibling;
+    if (error && error.classList.contains('input-error')) error.remove();
+    input.classList.remove('is-invalid');
+}
 
-        if (email === "admin@gmail.com" && password === "admin_123") {
-            window.location.href = "/public/admin.html"; 
+function validateInput(input, type) {
+    const value = input.value.trim();
+    if (value === '') {
+        showError(input, 'This field is required.');
+        return false;
+    }
+    if (type === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            showError(input, 'Format: name@example.com');
+            return false;
         }
-        else
-        {
-            window.location.href = "/public/home.html";
+    }
+    if (type === 'password' && value.length < 6) {
+        showError(input, 'Password must be at least 6 characters.');
+        return false;
+    }
+    if (type === 'confirmPassword') {
+        const password = document.getElementById("passwordInputSignup").value.trim();
+        if (value !== password) {
+            showError(input, 'Passwords do not match.');
+            return false;
+        }
+    }
+    clearError(input);
+    return true;
+}
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Signup fields 
+    const signupFields = [
+        { id: "nameInput", type: "text" },
+        { id: "emailInputSignup", type: "email" },
+        { id: "passwordInputSignup", type: "password" },
+        { id: "confirmPasswordInput", type: "confirmPassword" }
+    ];
+    const signupCheckbox = document.getElementById("termsCheckbox");
+
+    // Login fields
+    const loginFields = [
+        { id: "emailInputLogin", type: "email" },
+        { id: "passwordInputLogin", type: "password" }
+    ];
+
+    [...signupFields, ...loginFields].forEach(({ id, type }) => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener("focus", () => validateInput(input, type));
+            input.addEventListener("input", () => validateInput(input, type));
         }
     });
-});
 
-document.getElementById("signupForm").addEventListener("submit", function(event) {
-    event.preventDefault(); 
-    window.location.href = "/public/home.html";
+    if (signupCheckbox) {
+        signupCheckbox.addEventListener("change", () => {
+            if (signupCheckbox.checked) signupCheckbox.classList.remove("is-invalid-checkbox");
+        });
+    }
+
+    const signupForm = document.getElementById("signupForm");
+    if (signupForm) {
+        signupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let allValid = true;
+
+            signupFields.forEach(({ id, type }) => {
+                const input = document.getElementById(id);
+                if (!validateInput(input, type)) allValid = false;
+            });
+
+            if (!signupCheckbox.checked) {
+                signupCheckbox.classList.add("is-invalid-checkbox");
+                allValid = false;
+            }
+
+            if (allValid) {
+                window.location.href = "/public/home.html";
+            }
+        });
+    }
+
+    const loginForm = document.getElementById("loginFormElement");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let allValid = true;
+
+            loginFields.forEach(({ id, type }) => {
+                const input = document.getElementById(id);
+                if (!validateInput(input, type)) allValid = false;
+            });
+
+            if (!allValid) return;
+
+            const email = document.getElementById("emailInputLogin").value.trim();
+            const password = document.getElementById("passwordInputLogin").value.trim();
+
+            if (email === "admin@gmail.com" && password === "admin_123") {
+                window.location.href = "/public/admin.html";
+            } else {
+                window.location.href = "/public/home.html";
+            }
+        });
+    }
 });

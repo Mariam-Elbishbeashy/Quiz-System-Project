@@ -61,3 +61,18 @@
 #form-title {
     font-weight: bold;
 }
+
+.is-invalid-checkbox {
+    outline: 2px solid red;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+.is-invalid {
+    border-color: red !important;
+}
+
+.input-error {
+    font-size: 0.875rem;
+    color: red;
+    margin-top: 0.25rem;
+}

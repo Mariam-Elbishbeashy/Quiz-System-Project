@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentQuestionIndex = 0;
     let answers = new Array(questions.length).fill(null);
     let timerInterval;
-    const totalTime = 10; 
+    const totalTime = 60 * 10; 
     let timeLeft = totalTime;
 
     // Initialize timer

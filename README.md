@@ -9,6 +9,8 @@ This is the frontend for the Quiz System, a web-based application that allows us
 - **[Rowlkh](https://github.com/Rowlkh)**  
 - **[Mariam-Elbishbeashy](https://github.com/Mariam-Elbishbeashy)**
 - **[LauraLucasZ](https://github.com/LauraLucasZ)**
+- **[Ali Ihab](https://github.com/alolastik)**
+
 
 ---
 

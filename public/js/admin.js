@@ -2,14 +2,15 @@
 
 // Section: Initialize User Data
 document.addEventListener("DOMContentLoaded", function () {
-    let users = [
-        { name: "Florence Shaw", role: "User", lastActive: "Mar 4, 2024", dateAdded: "Mar 1, 2024", quizzesCreated: 5, quizzesModerated: 2 },
-        { name: "John Doe", role: "Admin", lastActive: "Mar 3, 2024", dateAdded: "Feb 28, 2024", quizzesCreated: 10, quizzesModerated: 5 },
-        { name: "Florence Shaw", role: "User", lastActive: "Mar 4, 2024", dateAdded: "Mar 1, 2024", quizzesCreated: 5, quizzesModerated: 2 },
-        { name: "John Doe", role: "Admin", lastActive: "Mar 3, 2024", dateAdded: "Feb 28, 2024", quizzesCreated: 10, quizzesModerated: 5 },
-        { name: "Florence Shaw", role: "User", lastActive: "Mar 4, 2024", dateAdded: "Mar 1, 2024", quizzesCreated: 5, quizzesModerated: 2 },
-        { name: "John Doe", role: "Admin", lastActive: "Mar 3, 2024", dateAdded: "Feb 28, 2024", quizzesCreated: 10, quizzesModerated: 5 }
-    ];
+ let users = [
+    { name: "Florence Shaw", role: "Creator", lastActive: "Mar 4, 2024", dateJoined: "Mar 1, 2024", quizzesCreated: 5, quizzesModerated: 0 },
+    { name: "John Doe", role: "Admin", lastActive: "Mar 3, 2024", dateJoined: "Feb 28, 2024", quizzesCreated: 10, quizzesModerated: 5 },
+    { name: "Alice Smith", role: "User", lastActive: "Mar 2, 2024", dateJoined: "Feb 20, 2024", quizzesCreated: 15,quizzesModerated: 0 },
+    { name: "Bob Johnson", role: "User", lastActive: "Mar 1, 2024", dateJoined: "Feb 25, 2024", quizzesCreated: 7,quizzesModerated: 0 },
+    { name: "Eve Martinez", role: "Creator", lastActive: "Mar 4, 2024", dateJoined: "Mar 2, 2024", quizzesCreated: 3, quizzesModerated: 1 },
+    { name: "Sam Wilson", role: "Admin", lastActive: "Mar 3, 2024", dateJoined: "Feb 28, 2024", quizzesCreated: 8, quizzesModerated: 6 }
+];
+
 
     let editingIndex = null; 
 

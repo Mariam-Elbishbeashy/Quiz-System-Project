@@ -93,6 +93,16 @@ body {
     color: #333;
 }
 
+#user-profile-link{
+    text-decoration: none;
+    color: #333;
+}
+#user-profile-link:hover{
+    color: #f4a31e;
+    text-shadow: #1f2937;
+    text-decoration: underline;
+    
+}
 /* Logout Button */
 .logout-btn {
     background-color: #8835e6;

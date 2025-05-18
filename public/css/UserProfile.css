@@ -255,3 +255,42 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     align-items: center;
     align-content: flex-start;
 }
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        background: white;
+        width: 200px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+        border-radius: 8px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links li {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+/* Hide the menu toggle button on larger screens */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none;
+    }
+}

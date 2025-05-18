@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (allValid) {
-                window.location.href = "/public/home.html";
+                window.location.href = "home.html";
             }
         });
     }
@@ -152,9 +152,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const password = document.getElementById("passwordInputLogin").value.trim();
 
             if (email === "admin@gmail.com" && password === "admin_123") {
-                window.location.href = "/public/admin.html";
+                window.location.href = "admin.html";
             } else {
-                window.location.href = "/public/home.html";
+                window.location.href = "home.html";
             }
         });
     }

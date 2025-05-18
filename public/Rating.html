@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="./css/UserProfile.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            
+            <img src="./images/paper.png" alt="Logo" class="logo">
+            <span class="brand-name">QuizMaster</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="home.html" id="quizzes-link">Quizzes</a></li>
+            <li><a href="createQuiz.html" class="\" id="create-link">Create Quiz</a></li>
+            <li><a href="analysis.html" id="analytics-link">Analytics</a></li>
+            <li><a href="#">Rating</a></li>
+        </ul>
+
+        <div class="navbar-right">
+            <div class="profile">
+                <img src="./images/account.png" alt="User Profile">
+                <span>Jane Doe</span>
+            </div>
+            <a href="../index.html" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+<div class="container-rating">    
+    <div class="card-body pb-2">
+        <div class="form-group">
+            <label class="form-label">Rating Description</label>
+            <textarea class="form-control"
+                rows="3">Write why you liked or disliked our website.</textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" value="Type Username Here">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Rating: </label>
+            <input type="text" class="form-control" value="Type number here out of 10">
+        </div>
+    </div>
+</div>  
+</body>

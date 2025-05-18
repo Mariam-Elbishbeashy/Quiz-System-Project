@@ -250,3 +250,8 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     color: #551a97;
     font-size: 27px;
 }
+
+.container-rating{
+    align-items: center;
+    align-content: flex-start;
+}

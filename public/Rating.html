@@ -1,38 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate</title>
-    <link rel="stylesheet" href="./css/UserProfile.css">
-
+    <title>QuizMaster - Rating System</title>
     <link rel="stylesheet" href="./css/home.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .navbar{
-           flex-wrap: unset;
+    <style> 
+        /* Additional styles specific to the rating page */
+        .rating-container {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
         }
-        .logout-btn{
-            margin-right: 0px;
+        
+        .page-title {
+            color: #5a2d82;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .rating-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #5a2d82;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f4a31e;
+        }
+        
+        .quiz-selector {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .quiz-selector:focus {
+            border-color: #8835e6;
+            outline: none;
+        }
+        
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .rating-star {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .rating-star:hover {
+            transform: scale(1.2);
+        }
+        
+        .rating-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .rating-comment {
+            width: 95%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            min-height: 120px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        .rating-comment:focus {
+            border-color: #8835e6;
+            outline: none;
+        }
+        
+        .submit-rating {
+            background-color: #8835e6;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .submit-rating:hover {
+            background-color: #7029cc;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(136, 53, 230, 0.4);
+        }
+        
+        .system-rating {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .thank-you {
+            text-align: center;
+            color: #4b5563;
+            margin-top: 30px;
+            font-style: italic;
+            display: none;
+        }
+        
+        .difficulty-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .difficulty-btn {
+            padding: 10px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            background: white;
+            color: #4b5563;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .difficulty-btn:hover {
+            border-color: #8835e6;
+            color: #8835e6;
+        }
+        
+        .difficulty-btn.selected {
+            background: #8835e6;
+            border-color: #8835e6;
+            color: white;
+        }
+
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f4a31e;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            color: #5a2d82;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .rating-summary {
+            margin-bottom: 20px;
+        }
+
+        .rating-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .rating-label-modal {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .rating-value {
+            color: #5a2d82;
+        }
+
+        .stars-display {
+            display: flex;
+            gap: 5px;
+        }
+
+        .stars-display svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-comment {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .modal-comment p {
+            margin: 0;
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .confirm-btn {
+            background-color: #8835e6;
+            color: white;
+            border: none;
+        }
+
+        .confirm-btn:hover {
+            background-color: #7029cc;
+        }
+
+        @media (max-width: 768px) {
+            .rating-container {
+                margin-top: 70px;
+            }
+            
+            .difficulty-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .difficulty-btn {
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 75%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (same as home page) -->
     <nav class="navbar">
         <div class="navbar-left">
             <button class="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
-
             <img src="./images/paper.png" alt="Logo" class="logo">
             <span class="brand-name">QuizMaster</span>
         </div>
 
         <ul class="nav-links">
             <li><a href="home.html" id="quizzes-link">Quizzes</a></li>
-            <li><a href="createQuiz.html" class="\" id="create-link">Create Quiz</a></li>
-            <li><a href="analysis.html" id="analytics-link">Analytics</a></li>
-            <li><a href="Rating.html" class="active">Rating</a></li>
+            <li><a href="createQuiz.html" class="active" id="create-link">Create Quiz</a></li>
+            <li><a href="analysis.html" class="active" id="analytics-link">Analytics</a></li>
+            <li><a href="Rating.html" class="active" id="rating-link">Rating</a></li>
         </ul>
 
         <div class="navbar-right">
@@ -43,22 +321,321 @@
             <a href="../index.html" class="logout-btn">Logout</a>
         </div>
     </nav>
-<div class="container-rating">    
-    <div class="card-body pb-2">
-        <div class="form-group">
-            <label class="form-label">Rating Description</label>
-            <textarea class="form-control"
-                rows="3">Write why you liked or disliked our website.</textarea>
+
+    <!-- Rating Content -->
+    <div class="rating-container">
+        <h1 class="page-title">Rate Your Experience</h1>
+        
+        <!-- Quiz Rating Section -->
+        <div class="rating-section">
+            <h2 class="section-title">Rate a Quiz</h2>
+            
+            <label for="quiz-select" class="rating-label">Select a Quiz:</label>
+            <select id="quiz-select" class="quiz-selector">
+                <option value="">-- Select a quiz to rate --</option>
+                <option value="mind-bending">Mind-Bending Riddle</option>
+                <option value="science">Science & Innovation</option>
+                <option value="general-knowledge">General Knowledge</option>
+                <option value="business">Business Strategies</option>
+                <option value="digital-marketing">Digital Marketing & Social Media</option>
+            </select>
+            
+            <label class="rating-label">Difficulty Level:</label>
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-level="easy">Easy</button>
+                <button class="difficulty-btn" data-level="medium">Medium</button>
+                <button class="difficulty-btn" data-level="hard">Hard</button>
+            </div>
+            
+            <label class="rating-label">Your Rating:</label>
+            <div class="rating-stars" id="quiz-stars">
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="1">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="2">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="3">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="4">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="5">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+            </div>
+            
+            <label for="quiz-comment" class="rating-label">Your Feedback (optional):</label>
+            <textarea id="quiz-comment" class="rating-comment" placeholder="What did you like or dislike about this quiz?"></textarea>
+            
+            <button class="submit-rating" id="submit-quiz-rating">Submit Rating</button>
         </div>
-        <div class="form-group">
-            <label class="form-label">Username</label>
-            <input type="text" class="form-control" value="Type Username Here">
+        
+        <!-- System Rating Section -->
+        <div class="rating-section system-rating">
+            <h2 class="section-title">Rate Our System</h2>
+            
+            <label class="rating-label">Overall Experience:</label>
+            <div class="rating-stars" id="system-stars">
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="1">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="2">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="3">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="4">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+                <svg class="rating-star" viewBox="0 0 24 24" data-rating="5">
+                    <path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path>
+                </svg>
+            </div>
+            
+            <label for="system-comment" class="rating-label">Your Feedback (optional):</label>
+            <textarea id="system-comment" class="rating-comment" placeholder="How can we improve your experience with QuizMaster?"></textarea>
+            
+            <button class="submit-rating" id="submit-system-rating">Submit Rating</button>
         </div>
-        <div class="form-group">
-            <label class="form-label">Rating: </label>
-            <input type="text" class="form-control" value="Type number here out of 10">
+        
+        <p class="thank-you" id="thank-you-message">Thank you for your feedback! Your ratings help us improve.</p>
+    </div>
+
+    <!-- Rating Submission Popup -->
+    <div class="modal" id="rating-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Rating Submitted</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="rating-summary" id="rating-summary">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn confirm-btn" id="confirm-rating">Confirm</button>
+            </div>
         </div>
     </div>
-</div>  
-<script src="./js/home.js"></script>
-</body>
+
+    <script src="./js/home.js"></script>
+    <script>
+        // Star rating functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables to store ratings
+            let quizRating = 0;
+            let systemRating = 0;
+            let difficultyLevel = '';
+            
+            // Get all star elements
+            const stars = document.querySelectorAll('.rating-star');
+            const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+            const quizStarsContainer = document.getElementById('quiz-stars');
+            const systemStarsContainer = document.getElementById('system-stars');
+            
+            // Modal elements
+            const modal = document.getElementById('rating-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const confirmRatingBtn = document.getElementById('confirm-rating');
+            const ratingSummary = document.getElementById('rating-summary');
+            
+            // Handle quiz selection
+            const quizSelect = document.getElementById('quiz-select');
+            
+            // Handle star rating clicks
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    const ratingContainer = this.closest('.rating-stars');
+                    
+                    // Reset all stars in this container
+                   const allStars = ratingContainer.querySelectorAll('.rating-star');
+                    allStars.forEach(s => {
+                    s.style.fill = '#e5e7eb';
+                    });
+                                    // Fill stars up to the clicked one
+                for (let i = 0; i < rating; i++) {
+                    allStars[i].style.fill = '#FFD700';
+                }
+                
+                // Store the rating based on which section it's in
+                if (ratingContainer.closest('.system-rating')) {
+                    systemRating = rating;
+                } else {
+                    quizRating = rating;
+                }
+            });
+        });
+        
+        // Handle difficulty level selection
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                difficultyLevel = this.getAttribute('data-level');
+            });
+        });
+        
+        // Handle quiz rating submission
+        document.getElementById('submit-quiz-rating').addEventListener('click', function() {
+            const quizId = quizSelect.value;
+            const quizName = quizSelect.options[quizSelect.selectedIndex].text;
+            const comment = document.getElementById('quiz-comment').value;
+            
+            if (!quizId) {
+                alert('Please select a quiz to rate.');
+                return;
+            }
+            
+            if (quizRating === 0) {
+                alert('Please provide a star rating.');
+                return;
+            }
+            
+            if (!difficultyLevel) {
+                alert('Please select a difficulty level.');
+                return;
+            }
+            
+            // Prepare the summary for the modal
+            let summaryHTML = `
+                <div class="rating-item">
+                    <span class="rating-label-modal">Quiz:</span>
+                    <span class="rating-value">${quizName}</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label-modal">Difficulty:</span>
+                    <span class="rating-value">${difficultyLevel.charAt(0).toUpperCase() + difficultyLevel.slice(1)}</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label-modal">Rating:</span>
+                    <div class="stars-display">
+                        ${'<svg viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path></svg>'.repeat(quizRating)}
+                        ${'<svg viewBox="0 0 24 24" fill="#e5e7eb"><path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path></svg>'.repeat(5 - quizRating)}
+                    </div>
+                </div>
+            `;
+            
+            if (comment) {
+                summaryHTML += `
+                    <div class="modal-comment">
+                        <p><strong>Your Feedback:</strong> ${comment}</p>
+                    </div>
+                `;
+            }
+            
+            ratingSummary.innerHTML = summaryHTML;
+            modal.style.display = 'flex';
+            
+            // Store the data for final submission
+            modal.dataset.ratingType = 'quiz';
+            modal.dataset.quizId = quizId;
+            modal.dataset.quizRating = quizRating;
+            modal.dataset.difficulty = difficultyLevel;
+            modal.dataset.comment = comment;
+        });
+        
+        // Handle system rating submission
+        document.getElementById('submit-system-rating').addEventListener('click', function() {
+            const comment = document.getElementById('system-comment').value;
+            
+            if (systemRating === 0) {
+                alert('Please provide a star rating.');
+                return;
+            }
+            
+            // Prepare the summary for the modal
+            let summaryHTML = `
+                <div class="rating-item">
+                    <span class="rating-label-modal">Rating Type:</span>
+                    <span class="rating-value">System Rating</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label-modal">Rating:</span>
+                    <div class="stars-display">
+                        ${'<svg viewBox="0 0 24 24" fill="#FFD700"><path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path></svg>'.repeat(systemRating)}
+                        ${'<svg viewBox="0 0 24 24" fill="#e5e7eb"><path d="M12 2l3.1 6.3L22 9.3l-5 4.9 1.2 7L12 17l-6.2 3.3L7 14.2 2 9.3l6.9-1L12 2z"></path></svg>'.repeat(5 - systemRating)}
+                    </div>
+                </div>
+            `;
+            
+            if (comment) {
+                summaryHTML += `
+                    <div class="modal-comment">
+                        <p><strong>Your Feedback:</strong> ${comment}</p>
+                    </div>
+                `;
+            }
+            
+            ratingSummary.innerHTML = summaryHTML;
+            modal.style.display = 'flex';
+            
+            // Store the data for final submission
+            modal.dataset.ratingType = 'system';
+            modal.dataset.systemRating = systemRating;
+            modal.dataset.comment = comment;
+        });
+        
+        // Close modal when clicking X button
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Handle final confirmation of rating
+        confirmRatingBtn.addEventListener('click', function() {
+            if (modal.dataset.ratingType === 'quiz') {
+                // Here you would typically send this data to your server
+                console.log('Quiz Rating Confirmed:', {
+                    quizId: modal.dataset.quizId,
+                    rating: modal.dataset.quizRating,
+                    difficulty: modal.dataset.difficulty,
+                    comment: modal.dataset.comment
+                });
+                
+                // Reset the quiz rating form
+                quizSelect.value = '';
+                quizStarsContainer.querySelectorAll('.rating-star').forEach(star => {
+                    star.style.fill = '#e5e7eb';
+                });
+                difficultyButtons.forEach(btn => btn.classList.remove('selected'));
+                document.getElementById('quiz-comment').value = '';
+                quizRating = 0;
+                difficultyLevel = '';
+            } else {
+                // Here you would typically send this data to your server
+                console.log('System Rating Confirmed:', {
+                    rating: modal.dataset.systemRating,
+                    comment: modal.dataset.comment
+                });
+                
+                // Reset the system rating form
+                systemStarsContainer.querySelectorAll('.rating-star').forEach(star => {
+                    star.style.fill = '#e5e7eb';
+                });
+                document.getElementById('system-comment').value = '';
+                systemRating = 0;
+            }
+            
+            // Close the modal
+            modal.style.display = 'none';
+            
+            // Show thank you message
+            const thankYou = document.getElementById('thank-you-message');
+            thankYou.style.display = 'block';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                thankYou.style.display = 'none';
+            }, 5000);
+        });
+    });
+</script>

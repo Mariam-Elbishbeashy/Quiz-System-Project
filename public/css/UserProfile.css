@@ -286,11 +286,68 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
         border: none;
         cursor: pointer;
     }
+
+    .navbar{
+        flex-wrap: unset !important;
+    }
 }
 
 /* Hide the menu toggle button on larger screens */
 @media (min-width: 769px) {
     .menu-toggle {
         display: none;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+    .logo {
+        height: 25px;
+    }
+    
+    .brand-name {
+        font-size: 14px;
+    }
+    
+    .nav-links {
+        top: 50px; /* Adjusted position */
+    }
+    
+    .nav-links a {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+    
+    .profile img {
+        height: 24px;
+        width: 24px;
+    }
+    
+    .logout-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+        margin-right: 10px;
+    }
+    
+    .dashboard-title {
+        padding-top: 15%; /* Adjusted for smaller navbar */
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding: 6px;
+    }
+    
+    .navbar-left, .navbar-right {
+        gap: 12px;
+    }
+    
+    .logout-btn {
+        margin-right: 5px;
+        padding: 5px 9px;
     }
 }

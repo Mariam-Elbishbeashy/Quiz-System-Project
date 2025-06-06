@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QuizMaster - Challenge Your Knowledge with fun quizzes">
     <title>QuizMaster - Challenge Your Knowledge</title>
     <link rel="stylesheet" href="./public/css/home.css">
     <link rel="stylesheet" href="./public/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">   
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,10 +25,10 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="#" class="active">About Us</a></li>
-            <li><a href="#">features</a></li>
-            <li><a href="#">Quizzes</a></li>
-            <li><a href="#">Rating</a></li>
+            <li><a href="#stats">About Us</a></li>            
+            <li><a href="#features">Features</a></li>
+            <li><a href="#quizzes">Quizzes</a></li>
+            <li><a href="#benefits">Learning Benefits</a></li>
         </ul>
 
         <div class="navbar-right">
@@ -44,19 +50,19 @@
         </div>
     </section>
 
-    <section class="trusted">
+    <section class="trusted" id="stats">
         <div class="stats-numbers">
-            <p><strong>10M+</strong> Quizzes Taken</p>
-            <p><strong>500K+</strong> Active Users</p>
-            <p><strong>95%</strong> Positive Feedback</p>
-            <p><strong>50+</strong> Quiz Categories</p>
+            <p data-animate="fade-in"><strong>10M+</strong> Quizzes Taken</p>
+            <p data-animate="fade-in" class="delay-1"><strong>500K+</strong> Active Users</p>
+            <p data-animate="fade-in" class="delay-2"><strong>95%</strong> Positive Feedback</p>
+            <p data-animate="fade-in" class="delay-3"><strong>50+</strong> Quiz Categories</p>
         </div>
     </section>
 
-    <section class="stats">
-        <img src="./public/images/08c926031c7cef76a834e25041839403-removebg-preview.png" class="stat-img">
+    <section class="stats" >
+        <img src="./public/images/08c926031c7cef76a834e25041839403-removebg-preview.png" class="stat-img" data-animate="slide-left">
 
-        <div class="stats-content">
+        <div class="stats-content" data-animate="slide-right">
             <h2>Why Choose QuizMaster?</h2>
             <ul>
                 <li>✔ Thousands of quizzes in various categories</li>
@@ -67,25 +73,25 @@
         </div>
     </section>
 
-    <section class="features">
+    <section class="features" id="features">
         <h2>What We Offer</h2>
         <div class="feature-box">
-            <div class="feature">
+            <div class="feature" data-animate="fade-in">
                 <i class="fas fa-question-circle"></i>
                 <h3>Variety of Topics</h3>
                 <p>Explore quizzes on a wide range of subjects.</p>
             </div>
-            <div class="feature">
-                <i class="fas fa-users"></i>
-                <h3>Compete with Friends</h3>
-                <p>Challenge your friends and see who ranks higher.</p>
+            <div class="feature" data-animate="fade-in" class="delay-1">
+                <i class="fas fa-edit"></i>
+                <h3>Create Quizzes</h3>
+                <p>Design and save your own custom quizzes.</p>
             </div>
-            <div class="feature">
+            <div class="feature" data-animate="fade-in" class="delay-2">
                 <i class="fas fa-chart-line"></i>
                 <h3>Track Your Progress</h3>
                 <p>Monitor your performance and improve over time.</p>
             </div>
-            <div class="feature">
+            <div class="feature" data-animate="fade-in" class="delay-3">
                 <i class="fas fa-trophy"></i>
                 <h3>Leaderboard Challenges</h3>
                 <p>Climb the leaderboard and earn bragging rights.</p>
@@ -95,18 +101,18 @@
 
     <section class="info-section">
         <div class="info-container">
-            <div class="info-text">
-                <h2>Reduce operational costs</h2>
-                <p>Get visibility and take control of the inefficient processes and costly resources spent on external workforce operations across every team.</p>
+            <div class="info-text" data-animate="slide-left">
+                <h2>Boost Your Knowledge Daily</h2>
+                <p>Our adaptive learning system helps you identify your strengths and weaknesses, providing personalized quizzes to maximize your learning potential and knowledge retention.</p>
             </div>
-            <div class="info-image">
+            <div class="info-image" data-animate="slide-right">
                 <img src="./public/images/c614032d327041b408f03310af659c50-removebg-preview.png" alt="Statistics Graph">
             </div>
         </div>
     </section>
 
-    <section class="quiz-carousel">
-        <h2>Choose Your Quiz Category</h2>
+    <section class="quiz-carousel"  id="quizzes">
+        <h2 data-animate="fade-in">Choose Your Quiz Category</h2>
         <div class="carousel-container">
             <button class="carousel-btn left-btn"><i class="fas fa-chevron-left"></i></button>
             <div class="carousel">
@@ -114,57 +120,58 @@
                     <img src="./public/images/4c16d876a2c007f4c188b82fe42f966e.jpg" alt="General Knowledge">
                     <h3>General Knowledge</h3>
                     <p>Test your knowledge across a variety of topics.</p>
-                    <a href="#" class="btn">Explore</a>
+                    <a href="public/registration.html#signup" class="btn">Explore</a>
                 </div>
                 <div class="card">
                     <img src="./public/images/0f8b6c17f0c79933387627c671e55c99.jpg" alt="Science">
                     <h3>Science</h3>
                     <p>Explore the wonders of science and technology.</p>
-                    <a href="#" class="btn">Explore</a>
+                    <a href="public/registration.html#signup" class="btn">Explore</a>
                 </div>
                 <div class="card">
                     <img src="./public/images/cee53a4eccbd2a807e6c960c0aec1081.jpg" alt="History">
                     <h3>History</h3>
                     <p>Challenge yourself with historical facts.</p>
-                    <a href="#" class="btn">Explore</a>
+                    <a href="public/registration.html#signup" class="btn">Explore</a>
                 </div>
                 <div class="card">
                     <img src="./public/images/8b1e8913ac4c3b52a1be842d63f8ff62.jpg" alt="History">
                     <h3>technology</h3>
                     <p>Challenge yourself with technological informations.</p>
-                    <a href="#" class="btn">Explore</a>
+                    <a href="public/registration.html#signup" class="btn">Explore</a>
                 </div>
             </div>
             <button class="carousel-btn right-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </section>
 
-    <section class="stats">
-        <img src="./public/images/dfe07a17c164157adbde83470fd27638-removebg-preview.png" class="stat-img">
+    <section class="stats" id="benefits">  <!-- Added id to match navbar -->
+        <img src="./public/images/dfe07a17c164157adbde83470fd27638-removebg-preview.png" class="stat-img" data-animate="slide-left">
 
-        <div class="stats-content">
-            <h2>Why Choose QuizMaster?</h2>
+        <div class="stats-content" data-animate="slide-right">
+            <h2>Proven Learning Benefits</h2>  <!-- Changed title -->
             <ul>
-                <li>✔ Thousands of quizzes in various categories</li>
-                <li>✔ Compete with friends & rank on the leaderboard</li>
-                <li>✔ Instant feedback & performance tracking</li>
+                <li>✔ Enhances knowledge retention through active recall</li>
+                <li>✔ Identifies knowledge gaps for targeted learning</li>
+                <li>✔ Boosts confidence through progressive challenges</li>
+                <li>✔ Makes learning engaging and measurable</li>  <!-- Added new point -->
             </ul>
-            <a href="#" class="btn">Learn More</a>
+            <a href="#features" class="btn">See How It Works</a>  <!-- Updated link -->
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-logo">
+            <div class="footer-logo" data-animate="fade-in">
                 <img src="./public/images/paper.png" alt="QuizMaster Logo">
                 <h2>QuizMaster</h2>
             </div>
             <div class="footer-links">
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Quizzes</a></li>
-                    <li><a href="#">Rating</a></li>
+                    <li><a href="#stats">About Us</a></li>            
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#quizzes">Quizzes</a></li>
+                    <li><a href="#benefits">Learning Benefits</a></li>
                 </ul>
             </div>
             <div class="footer-social">

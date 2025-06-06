@@ -73,12 +73,13 @@
     </div>
 
     <!-- Confirmation Popup -->
-    <div id="popup" class="popup-container">
+    <div id="back-confirm-popup" class="popup-container" style="display: none;">
         <div class="popup-box">
-            <p class="popup-message">Are you sure you want to exit the exam?</p>
+            <h3>Exit Test</h3>
+            <p>Are you sure you want to exit the test? Your progress will not be saved.</p>
             <div class="popup-buttons">
-                <button class="popup-btn exit-btn" onclick="confirmExit()">Exit</button>
-                <button class="popup-btn cancel-btn" onclick="closePopup()">Cancel</button>
+                <button id="confirm-exit-btn" class="popup-btn exit-btn">Exit</button>
+                <button id="cancel-exit-btn" class="popup-btn cancel-btn">Cancel</button>
             </div>
         </div>
     </div>
@@ -99,6 +100,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Exit Confirmation Popup -->
+    <div id="exit-confirm-popup" class="popup-container" style="display: none;">
+        <div class="popup-box">
+            <h3>Exit Review</h3>
+            <p>Do you want to return to review your answers or exit to the home page?</p>
+            <div class="popup-buttons">
+                <button id="return-to-review-btn" class="popup-btn cancel-btn">Return to Review</button>
+                <button id="exit-to-home-btn" class="popup-btn exit-btn">Exit to Home</button>
+            </div>
+        </div>
+</div>
     <script src="./js/questions.js"></script>
 </body>
 </html>

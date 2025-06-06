@@ -15,36 +15,67 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Quiz details modal functionality
+    // Update the quizData object in home.js to include all quizzes and difficulties
     const quizData = {
         'mind-bending-riddle': {
             title: 'Mind-Bending Riddle',
             description: 'Challenge your cognitive abilities with logic puzzles and riddles.',
-            categories: ['Puzzles', 'Logic']
+            categories: ['Puzzles', 'Logic'],
+            difficulties: {
+                easy: 'mind-bending-easy',
+                intermediate: 'mind-bending-intermediate',
+                hard: 'mind-bending-hard'
+            }
         },
         'science-innovation': {
             title: 'Science & Innovation',
             description: 'Explore scientific discoveries and technological advancements.',
-            categories: ['Science', 'Technology']
+            categories: ['Science', 'Technology'],
+            difficulties: {
+                easy: 'science-easy',
+                intermediate: 'science-intermediate',
+                hard: 'science-hard'
+            }
         },
         'general-knowledge': {
             title: 'General Knowledge',
             description: 'Test your knowledge across multiple disciplines.',
-            categories: ['Science', 'Knowledge', 'History']
+            categories: ['Science', 'Knowledge', 'History'],
+            difficulties: {
+                easy: 'general-knowledge-easy',
+                intermediate: 'general-knowledge-intermediate',
+                hard: 'general-knowledge-hard'
+            }
         },
         'business-strategies': {
             title: 'Business Strategies',
             description: 'Learn about market dynamics, financial concepts, and strategies.',
-            categories: ['Business', 'Markets']
+            categories: ['Business', 'Markets'],
+            difficulties: {
+                easy: 'business-easy',
+                intermediate: 'business-intermediate',
+                hard: 'business-hard'
+            }
         },
-        'digital-marketing': {
+        'digital-marketing-social-media': {
             title: 'Digital Marketing & Social Media',
             description: 'Master digital marketing strategies, from SEO to social media.',
-            categories: ['Marketing', 'Social Media']
+            categories: ['Marketing', 'Social Media'],
+            difficulties: {
+                easy: 'marketing-easy',
+                intermediate: 'marketing-intermediate',
+                hard: 'marketing-hard'
+            }
         },
-        'advanced-css': {
+        'advanced-css-card': {
             title: 'Advanced CSS Card',
             description: 'Test your expertise in CSS techniques, animations, and layouts.',
-            categories: ['Design', 'CSS']
+            categories: ['Design', 'CSS'],
+            difficulties: {
+                easy: 'css-easy',
+                intermediate: 'css-intermediate',
+                hard: 'css-hard'
+            }
         }
     };
 
@@ -143,15 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle start quiz
     startQuizBtn.addEventListener('click', () => {
         if (selectedDifficulty) {
-            console.log(`Starting quiz: ${selectedQuiz} with difficulty: ${selectedDifficulty}`);
-
-            // Redirect if it's General Knowledge and Easy difficulty
-            if (selectedQuiz === 'general-knowledge' && selectedDifficulty === 'easy') {
-                window.location.href = "questions.html";
-            } else {
-                alert(`Starting ${selectedQuiz} quiz with difficulty: ${selectedDifficulty}`);
-                closeModal();
-            }
+            const quizId = quizData[selectedQuiz].difficulties[selectedDifficulty];
+            window.location.href = `questions.html?quiz=${quizId}`;
         }
     });
 });

@@ -494,3 +494,41 @@ body {
         padding: 5px 9px;
     }
 }
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .quiz-details-modal {
+        width: 93%;
+        max-height: 70vh;
+        padding: 15px;
+    }
+    
+    .difficulty-options {
+        flex-direction: column; 
+    }
+    
+    .difficulty-btn {
+        width: 100%;
+        margin: 5px 0; 
+        padding: 12px; 
+    
+    .modal-header {
+        padding: 10px 0;
+    }
+    
+    .quiz-title {
+        font-size: 1.3rem; 
+    }
+    
+    .quiz-description {
+        font-size: 0.9rem; 
+        margin-bottom: 15px;
+    }
+    
+    .start-quiz-btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+    }
+} 
+}

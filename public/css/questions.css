@@ -373,3 +373,24 @@ button {
         padding: 15px !important;
     }
 }
+
+.question-nav-btn {
+    z-index: -1 !important; 
+}
+
+.popup-btn, 
+.exit-btn, 
+.cancel-btn, 
+.finish-btn, 
+.next-btn, 
+.prev-btn {
+    z-index: 100 !important; 
+}
+
+.popup-container {
+    z-index: 1000 !important; 
+}
+
+.question-nav-popup {
+    z-index: 75 !important; 
+}

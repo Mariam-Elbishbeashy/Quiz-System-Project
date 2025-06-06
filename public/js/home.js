@@ -79,21 +79,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // Create and append modal HTML
+    // Create and append modal HTML with improved accessibility
     const modalHTML = `
-        <div class="modal-overlay">
-            <div class="quiz-details-modal">
+        <div class="modal-overlay" aria-hidden="true">
+            <div class="quiz-details-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
                 <div class="modal-header">
-                    <h2 class="quiz-title"></h2>
-                    <button class="modal-close">&times;</button>
+                    <h2 id="modal-title" class="quiz-title"></h2>
+                    <button class="modal-close" aria-label="Close modal">&times;</button>
                 </div>
                 <p class="quiz-description"></p>
                 <div class="difficulty-section">
                     <h3>Select Difficulty</h3>
-                    <div class="difficulty-options">
-                        <button class="difficulty-btn" data-difficulty="easy">Easy</button>
-                        <button class="difficulty-btn" data-difficulty="intermediate">Intermediate</button>
-                        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                    <div class="difficulty-options" role="radiogroup" aria-labelledby="difficulty-label">
+                        <button class="difficulty-btn" data-difficulty="easy" role="radio" aria-checked="false">
+                            <span class="difficulty-icon">🌱</span>
+                            <span class="difficulty-text">Easy</span>
+                        </button>
+                        <button class="difficulty-btn" data-difficulty="intermediate" role="radio" aria-checked="false">
+                            <span class="difficulty-icon">🏋️</span>
+                            <span class="difficulty-text">Intermediate</span>
+                        </button>
+                        <button class="difficulty-btn" data-difficulty="hard" role="radio" aria-checked="false">
+                            <span class="difficulty-icon">🚀</span>
+                            <span class="difficulty-text">Hard</span>
+                        </button>
                     </div>
                 </div>
                 <button class="start-quiz-btn" disabled>Start Quiz</button>
@@ -112,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedQuiz = null;
     let selectedDifficulty = null;
+    let lastFocusedElement = null;
 
     // Add click handlers to all explore buttons
     const exploreButtons = document.querySelectorAll('.card-button');
@@ -121,6 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const card = this.closest('.card');
             const title = card.querySelector('.card-title').textContent.trim();
+
+            // Store the last focused element for better keyboard navigation
+            lastFocusedElement = this;
 
             // Convert title to key format
             const quizKey = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
@@ -132,35 +145,73 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Handle difficulty selection
+    // Handle difficulty selection with improved accessibility
     difficultyBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            difficultyBtns.forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            selectedDifficulty = btn.dataset.difficulty;
-            startQuizBtn.disabled = false;
+            selectDifficulty(btn);
+        });
+
+        // Add keyboard support
+        btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectDifficulty(btn);
+            }
         });
     });
 
-    // Show quiz details
+    function selectDifficulty(btn) {
+        difficultyBtns.forEach(b => {
+            b.classList.remove('selected');
+            b.setAttribute('aria-checked', 'false');
+        });
+        
+        btn.classList.add('selected');
+        btn.setAttribute('aria-checked', 'true');
+        selectedDifficulty = btn.dataset.difficulty;
+        startQuizBtn.disabled = false;
+        
+        // Focus the start button for better mobile flow
+        startQuizBtn.focus();
+    }
+
+    // Show quiz details with accessibility improvements
     function showQuizDetails(quiz) {
         modal.querySelector('.quiz-title').textContent = quiz.title;
         modal.querySelector('.quiz-description').textContent = quiz.description;
 
         // Reset difficulty selection
-        difficultyBtns.forEach(btn => btn.classList.remove('selected'));
+        difficultyBtns.forEach(btn => {
+            btn.classList.remove('selected');
+            btn.setAttribute('aria-checked', 'false');
+        });
         startQuizBtn.disabled = true;
         selectedDifficulty = null;
 
         // Show modal and overlay
         overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
         modal.classList.add('show');
+        
+        // Focus the first interactive element for screen readers
+        setTimeout(() => {
+            difficultyBtns[0].focus();
+        }, 100);
+        
+        // Trap focus within modal
+        trapFocus(modal);
     }
 
-    // Close modal function
+    // Close modal function with accessibility improvements
     function closeModal() {
         modal.classList.remove('show');
         overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+        
+        // Return focus to the element that opened the modal
+        if (lastFocusedElement) {
+            lastFocusedElement.focus();
+        }
     }
 
     // Close modal events
@@ -171,11 +222,79 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Handle start quiz
+    // Handle keyboard navigation for modal
+    document.addEventListener('keydown', (e) => {
+        if (modal.classList.contains('show')) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            
+            // Tab key navigation trap
+            if (e.key === 'Tab') {
+                const focusableElements = modal.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                
+                if (e.shiftKey) {
+                    if (document.activeElement === firstElement) {
+                        lastElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastElement) {
+                        firstElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+    });
+
+    // Handle start quiz with mobile considerations
     startQuizBtn.addEventListener('click', () => {
         if (selectedDifficulty) {
             const quizId = quizData[selectedQuiz].difficulties[selectedDifficulty];
             window.location.href = `questions.html?quiz=${quizId}`;
         }
     });
+
+    // Function to trap focus within modal
+    function trapFocus(element) {
+        const focusableElements = element.querySelectorAll('button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        
+        if (focusableElements.length > 0) {
+            focusableElements[0].focus();
+        }
+    }
+});
+
+// In your showQuizDetails function, add mobile detection if needed
+function showQuizDetails(quiz) {
+    modal.querySelector('.quiz-title').textContent = quiz.title;
+    modal.querySelector('.quiz-description').textContent = quiz.description;
+
+    // Reset difficulty selection
+    difficultyBtns.forEach(btn => btn.classList.remove('selected'));
+    startQuizBtn.disabled = true;
+    selectedDifficulty = null;
+
+    // Show modal and overlay
+    overlay.classList.add('show');
+    modal.classList.add('show');
+    
+    // Add mobile-specific class if needed
+    if (window.innerWidth <= 768) {
+        modal.classList.add('mobile-view');
+    }
+}
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    if (modal.classList.contains('show')) {
+        if (window.innerWidth <= 768) {
+            modal.classList.add('mobile-view');
+        } else {
+            modal.classList.remove('mobile-view');
+        }
+    }
 });

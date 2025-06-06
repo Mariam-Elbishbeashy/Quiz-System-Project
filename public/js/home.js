@@ -349,3 +349,15 @@ document.addEventListener("DOMContentLoaded", function() {
     setupSearch();
     // ... rest of your existing code
 });
+
+// Trigger animations after page load
+window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.card');
+    
+    // Using requestAnimationFrame for reliable triggering
+    requestAnimationFrame(() => {
+        cards.forEach(card => {
+            card.classList.add('animate-in');
+        });
+    });
+});

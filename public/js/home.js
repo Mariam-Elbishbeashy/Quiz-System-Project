@@ -298,3 +298,54 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+// Search functionality
+function setupSearch() {
+    const searchInput = document.getElementById('quiz-search');
+    const cards = document.querySelectorAll('.card');
+
+    function performSearch() {
+        const searchTerm = searchInput.value.trim();
+
+        cards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent;
+            const description = card.querySelector('.card-description').textContent;
+            const tags = Array.from(card.querySelectorAll('.card-tag')).map(tag => tag.textContent);
+
+            let isMatch = false;
+
+            if (searchTerm) {
+                try {
+                    const regex = new RegExp(searchTerm, 'i');
+                    isMatch = regex.test(title) || 
+                             regex.test(description) || 
+                             tags.some(tag => regex.test(tag));
+                } catch (e) {
+                    // If regex is invalid, show no matches
+                    isMatch = false;
+                }
+            } else {
+                // Empty search shows all
+                isMatch = true;
+            }
+
+            card.style.display = isMatch ? 'block' : 'none';
+        });
+    }
+
+    // Search as you type with debounce
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(performSearch, 300);
+    });
+
+    // Initial search to show all quizzes
+    performSearch();
+}
+
+// Call this function in your DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", function() {
+    setupSearch();
+    // ... rest of your existing code
+});

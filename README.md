@@ -1,6 +1,10 @@
 # Quiz System Frontend
 
-📌 **Overview**
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blueviolet?style=for-the-badge&logo=github)](https://mariam-elbishbeashy.github.io/Quiz-System-Project/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#📜-license)
+
+---
+## 📌 **Overview**
 
 This is the frontend for the Quiz System, a web-based application that allows users to sign up, log in, take quizzes, and track their performance. This frontend is built using **HTML**, **CSS**, and **JavaScript**.
 
